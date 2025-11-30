@@ -1,10 +1,6 @@
 package ex1;
-import ex2.Collidable;
-import ex2.CollisionInfo;
-import ex2.GameEnvironment;
-import ex2.Sprite;
+import ex2.*;
 import biuoop.DrawSurface;
-import ex2.Rectangle;
 
 public class Ball implements Sprite {
     private Point center;
@@ -92,6 +88,9 @@ public class Ball implements Sprite {
     public Velocity getVelocity() {
         return this.velocity; //new object
 
+    }
+    public void addToGame(Game g) {
+        g.addSprite(this);  // ✅ רק זה!
     }
 
     public void moveOneStep() {

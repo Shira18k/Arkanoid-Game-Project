@@ -4,9 +4,11 @@ import ex1.Line;
 import ex1.Point;
 import ex1.Velocity;
 
+import java.awt.*;
+
 public class Block implements Collidable, Sprite{
     private static final double EPSILON = 0.00001;
-    private Rectangle boundary;
+    protected Rectangle boundary;
     private java.awt.Color color;
 
     public Block(Rectangle rect) { //defined the physical information of the block
@@ -14,8 +16,7 @@ public class Block implements Collidable, Sprite{
     }
 
     public void drawOn(DrawSurface surface) {
-        surface.setColor(this.color);
-
+        surface.setColor(Color.BLUE);
         //up_left point
         int x = (int) this.boundary.getUpperLeft().getX();
         int y = (int) this.boundary.getUpperLeft().getY();
@@ -31,6 +32,11 @@ public class Block implements Collidable, Sprite{
     @Override // to be sure that the name (is)? like the original name
     public Rectangle getCollisionRectangle() {
         return this.boundary; // return the physical information of the block
+    }
+
+    public void addToGame(Game g) {
+        g.addSprite(this);      // ✅ כי צריך לצייר אותו
+        g.addCollidable(this);  // ✅ כי כדורים מתנגשים בו
     }
 
     @Override// to be sure that the name the same like the original name

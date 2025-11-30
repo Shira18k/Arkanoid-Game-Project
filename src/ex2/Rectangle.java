@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rectangle {
-    private Point upperLeft;
+    protected Point upperLeft;
     private double width;
     private double height;
 
@@ -32,6 +32,7 @@ public class Rectangle {
         }
         return pointsList;
     }
+
 
     //find the points of the rectangle and return in an array
     // important - the rectangle are aligned with the axes

@@ -55,11 +55,14 @@ public class Game {
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - BORDER_SIZE, 0), BORDER_SIZE, FRAME_HEIGHT));
         Block topWall = new Block(new Rectangle(new Point(0, 0), FRAME_WIDTH, BORDER_SIZE));
         Block bottomWall = new Block(new Rectangle(new Point(0, FRAME_HEIGHT - BORDER_SIZE), FRAME_WIDTH, BORDER_SIZE));
+        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10,gui);
         // add to sprite and collidable
         leftWall.addToGame(this);
         rightWall.addToGame(this);
         topWall.addToGame(this);
         bottomWall.addToGame(this);
+
+        paddle.addToGame(this);
 
         //create the blocks
         final int BLOCK_WIDTH = 100;
@@ -82,6 +85,7 @@ public class Game {
             }
         }
         // create the ball
+        Color color = Color.BLACK;
         double BALL_START_X = 400;
         double BALL_START_Y = 300;
         Ball ball = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.BLUE, this.environment);// 1. נקודת התחלה
