@@ -1,3 +1,5 @@
+package Mains;
+
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
@@ -11,7 +13,7 @@ import ex2.Rectangle;
 import java.awt.*;
 import java.util.Random;
 
-public class Main {
+public class Main1_justBalls {
     public static void main(String[] args) {
         Random rand = new Random();
 
