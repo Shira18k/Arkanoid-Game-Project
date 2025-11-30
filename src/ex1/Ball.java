@@ -2,11 +2,11 @@ package ex1;
 import ex2.Collidable;
 import ex2.CollisionInfo;
 import ex2.GameEnvironment;
-
+import ex2.Sprite;
 import biuoop.DrawSurface;
 import ex2.Rectangle;
 
-public class Ball {
+public class Ball implements Sprite {
     private Point center;
     private int r;
     private java.awt.Color color;
@@ -47,6 +47,18 @@ public class Ball {
         this.yStart = yStart;
     }
 
+    // draw the ball on the given DrawSurface
+    @Override
+    public void drawOn(DrawSurface surface) {
+        surface.setColor(color);
+        surface.fillCircle((int) center.getX(), (int) center.getY(), r);
+    }
+
+    @Override
+    public void timePassed() { // ⭐ הוספת public
+        this.moveOneStep();
+    }
+
     // accessors
     public int getX() {
         return (int) center.getX();
@@ -64,11 +76,7 @@ public class Ball {
         return color;
     }
 
-    // draw the ball on the given DrawSurface
-    public void drawOn(DrawSurface surface) {
-        surface.setColor(color);
-        surface.fillCircle((int) center.getX(), (int) center.getY(), r);
-    }
+
     // new methods by ex1.Velocity
 
     public void setVelocity(Velocity v) {

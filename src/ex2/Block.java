@@ -1,23 +1,39 @@
 package ex2;
+import biuoop.DrawSurface;
 import ex1.Line;
 import ex1.Point;
 import ex1.Velocity;
 
-public class Block implements Collidable {
+public class Block implements Collidable, Sprite{
     private static final double EPSILON = 0.00001;
     private Rectangle boundary;
+    private java.awt.Color color;
 
     public Block(Rectangle rect) { //defined the physical information of the block
         this.boundary = rect;
     }
 
+    public void drawOn(DrawSurface surface) {
+        surface.setColor(this.color);
+
+        //up_left point
+        int x = (int) this.boundary.getUpperLeft().getX();
+        int y = (int) this.boundary.getUpperLeft().getY();
+        //Draw a block
+        surface.fillRectangle(x, y, (int) this.boundary.getWidth(), (int) this.boundary.getHeight());
+
+    }
+
+    @Override
+    public void timePassed() {
+    }
 
     @Override // to be sure that the name (is)? like the original name
     public Rectangle getCollisionRectangle() {
         return this.boundary; // return the physical information of the block
     }
 
-    @Override // to be sure that the name the same like the original name
+    @Override// to be sure that the name the same like the original name
     // update (if hit)
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
         double newDx = currentVelocity.getDX(); // the x value of the speed
