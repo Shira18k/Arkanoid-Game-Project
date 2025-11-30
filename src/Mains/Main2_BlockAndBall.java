@@ -26,7 +26,7 @@ public class Main2_BlockAndBall {
         GameEnvironment env = new GameEnvironment();
 
         // Frame (Blocks)
-        // Left
+        // left
         Block leftWall = new Block(new Rectangle(new Point(0, 0), WALL_THICKNESS, FRAME_HEIGHT));
         // right
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - WALL_THICKNESS, 0), WALL_THICKNESS, FRAME_HEIGHT));
@@ -42,8 +42,8 @@ public class Main2_BlockAndBall {
 
 
         // Create the block
-        int blockWidth = 60;
-        int blockHeight = 40;
+        int blockWidth = 100;
+        int blockHeight = 10;
 
         //random location - block
         int blockX = rand.nextInt(FRAME_WIDTH - 2 * WALL_THICKNESS - blockWidth - 20) + WALL_THICKNESS + 10;
@@ -53,20 +53,20 @@ public class Main2_BlockAndBall {
         Block centerBlock = new Block(centerRect);
 
 
-        final Color CENTER_BLOCK_COLOR = new Color(178, 100, 255);
+        final Color CENTER_BLOCK_COLOR = new Color(156, 50, 90);
         env.addCollidable(centerBlock);
 
         System.out.println("✓ 4 Walls and 1 Central Block added to environment.");
 
 
         // Create the ball
-        int ballSize = 5;
+        int ballSize = 10;
 
         int startX = rand.nextInt(FRAME_WIDTH - 2 * WALL_THICKNESS - ballSize * 2) + WALL_THICKNESS + ballSize;
         int startY = rand.nextInt(FRAME_HEIGHT - 2 * WALL_THICKNESS - ballSize * 2) + WALL_THICKNESS + ballSize;
         Point startPoint = new Point(startX, startY);
 
-        Ball singleBall = new Ball(startPoint, ballSize, Color.RED, env);
+        Ball singleBall = new Ball(startPoint, ballSize, Color.BLACK, env);
 
         // Speed
         Velocity v = Velocity.fromAngleAndSpeed(rand.nextInt(360), 5.0);
@@ -82,20 +82,19 @@ public class Main2_BlockAndBall {
             d.setColor(Color.WHITE);
             d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
-            //
+            //Set color for block
             d.setColor(CENTER_BLOCK_COLOR);
             d.fillRectangle((int)centerRect.getUpperLeft().getX(), (int)centerRect.getUpperLeft().getY(), blockWidth, blockHeight);
-            d.setColor(Color.BLACK);
             d.drawRectangle((int)centerRect.getUpperLeft().getX(), (int)centerRect.getUpperLeft().getY(), blockWidth, blockHeight);
 
             d.setColor(Color.WHITE);
-            // קיר שמאלי
+            // left
             d.fillRectangle(0, 0, WALL_THICKNESS, FRAME_HEIGHT);
-            // קיר ימני
+            // right
             d.fillRectangle(FRAME_WIDTH - WALL_THICKNESS, 0, WALL_THICKNESS, FRAME_HEIGHT);
-            // קיר עליון
+            // up
             d.fillRectangle(WALL_THICKNESS, 0, FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS);
-            // קיר תחתון
+            // down
             d.fillRectangle(WALL_THICKNESS, FRAME_HEIGHT - WALL_THICKNESS, FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS);
 
             // move the ball

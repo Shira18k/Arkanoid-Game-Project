@@ -11,16 +11,16 @@ public class MultipleFramesBouncingBallsAnimation {
 
     public static void main(String[] args) {
 
-//        String[] array = new String[6];
-//        array[0] = "12";
-//        array[1] = "2";
-//        array[2] = "3";
-//        array[3] = "4";
-//        array[4] = "2";
-//        array[5] = "9";
+        String[] array = new String[6];
+        array[0] = "12";
+        array[1] = "2";
+        array[2] = "3";
+        array[3] = "4";
+        array[4] = "2";
+        array[5] = "9";
 
         MultipleFramesBouncingBallsAnimation obj = new MultipleFramesBouncingBallsAnimation();
-        obj.draw2windows6balls(args);
+        obj.draw2windows6balls(array);
 
     }
 
@@ -65,6 +65,7 @@ public class MultipleFramesBouncingBallsAnimation {
             d.fillRectangle(50, 50, 500, 500);
             d.setColor(Color.YELLOW);
             d.fillRectangle(450, 450, 600, 600);
+
             //First frame
             for (int i=0; i < 6;i++) {
                 //Move each ball forward

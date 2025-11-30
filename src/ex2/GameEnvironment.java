@@ -32,7 +32,7 @@ public class GameEnvironment {
     public CollisionInfo getClosestCollision(Line trajectory) {
         //add after claud
         if (collidables == null || collidables.isEmpty()) {
-            return null; // אין אובייקטים - אין התנגשות
+            return null;
         }
         double min_dis = Double.MAX_VALUE; // min distance
         Point closestPoint = null;         // the closet insertion point
@@ -50,7 +50,7 @@ public class GameEnvironment {
             }
         }
         if (closest_C == null) {
-            return null; // <-- הראשון שמחזיר: אם לא נכנסנו לאף IF בתוך הלולאה
+            return null;
         }
         return new CollisionInfo(closestPoint, closest_C);
     }

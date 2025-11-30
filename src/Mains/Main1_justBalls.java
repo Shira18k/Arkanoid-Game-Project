@@ -64,7 +64,7 @@ public class Main1_justBalls {
             Ball current = new Ball(point, size, colors[i], env);
 
             int angle = rand.nextInt(360);
-            double speed = 2; // מהירות בינונית
+            double speed = 5; // מהירות בינונית
             Velocity v = Velocity.fromAngleAndSpeed(angle, speed);
 
             current.setVelocity(v);
