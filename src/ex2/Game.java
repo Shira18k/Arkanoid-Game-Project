@@ -10,13 +10,11 @@ import java.awt.*;
 
 public class Game {
 
-    // קבועים להגדרת גודל המסך וגבולות בשביל initialize
     private static final int FRAME_WIDTH = 800;
     private static final int FRAME_HEIGHT = 600;
     private static final int BORDER_SIZE = 10; // גודל ה"קירות"
     private static final int BALL_RADIUS = 7;
 
-    // אובייקטים פנימיים (מנהלים)
     private GUI gui;
     private SpriteCollection sprites;
     private GameEnvironment environment;
@@ -42,7 +40,7 @@ public class Game {
     }
 
     // Initialize a new game:
-    //create frame(env)
+    // create frame(env)
     // create the Blocks and Ball (and Paddle)
     // and add them to the game.
 
@@ -107,8 +105,6 @@ public class Game {
 
     // Run the game -- start the animation loop.
     public void run() {
-        //
-
         int framesPerSecond = 60;
         int millisecondsPerFrame = 1000 / framesPerSecond;
         while (true) {

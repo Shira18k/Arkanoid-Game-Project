@@ -11,7 +11,7 @@ public class GameEnvironment {
 
 
     public GameEnvironment() {
-        this.collidables = new ArrayList<>(); // ⭐ זה חסר!
+        this.collidables = new ArrayList<>();
     }
 
     // add the given collidable to the environment.
