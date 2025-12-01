@@ -3,7 +3,6 @@ import biuoop.DrawSurface;
 import ex1.Line;
 import ex1.Point;
 import ex1.Velocity;
-
 import java.awt.*;
 
 public class Block implements Collidable, Sprite{
@@ -11,17 +10,21 @@ public class Block implements Collidable, Sprite{
     protected Rectangle boundary;
     private java.awt.Color color;
 
-    public Block(Rectangle rect) { //defined the physical information of the block
+    public Block(Rectangle rect,Color c) { //defined the physical information of the block
         this.boundary = rect;
+        this.color = c;
     }
 
     public void drawOn(DrawSurface surface) {
-        surface.setColor(Color.BLUE);
+        surface.setColor(this.color);
         //up_left point
         int x = (int) this.boundary.getUpperLeft().getX();
         int y = (int) this.boundary.getUpperLeft().getY();
         //Draw a block
         surface.fillRectangle(x, y, (int) this.boundary.getWidth(), (int) this.boundary.getHeight());
+        //draw frame
+        surface.setColor(Color.BLACK);
+        surface.drawRectangle(x, y, (int) this.boundary.getWidth(), (int) this.boundary.getHeight());
 
     }
 
@@ -35,8 +38,8 @@ public class Block implements Collidable, Sprite{
     }
 
     public void addToGame(Game g) {
-        g.addSprite(this);      // ✅ כי צריך לצייר אותו
-        g.addCollidable(this);  // ✅ כי כדורים מתנגשים בו
+        g.addSprite(this);
+        g.addCollidable(this);
     }
 
     @Override// to be sure that the name the same like the original name

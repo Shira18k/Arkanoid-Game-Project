@@ -27,13 +27,13 @@ public class Main2_BlockAndBall {
 
         // Frame (Blocks)
         // left
-        Block leftWall = new Block(new Rectangle(new Point(0, 0), WALL_THICKNESS, FRAME_HEIGHT));
+        Block leftWall = new Block(new Rectangle(new Point(0, 0), WALL_THICKNESS, FRAME_HEIGHT),Color.gray);
         // right
-        Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - WALL_THICKNESS, 0), WALL_THICKNESS, FRAME_HEIGHT));
+        Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - WALL_THICKNESS, 0), WALL_THICKNESS, FRAME_HEIGHT),Color.gray);
         // up
-        Block topWall = new Block(new Rectangle(new Point(WALL_THICKNESS, 0), FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS));
+        Block topWall = new Block(new Rectangle(new Point(WALL_THICKNESS, 0), FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS),Color.gray);
         // down
-        Block bottomWall = new Block(new Rectangle(new Point(WALL_THICKNESS, FRAME_HEIGHT - WALL_THICKNESS), FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS));
+        Block bottomWall = new Block(new Rectangle(new Point(WALL_THICKNESS, FRAME_HEIGHT - WALL_THICKNESS), FRAME_WIDTH - 2 * WALL_THICKNESS, WALL_THICKNESS),Color.gray);
 
         env.addCollidable(leftWall);
         env.addCollidable(rightWall);
@@ -50,7 +50,7 @@ public class Main2_BlockAndBall {
         int blockY = rand.nextInt(FRAME_HEIGHT - 2 * WALL_THICKNESS - blockHeight - 20) + WALL_THICKNESS + 10;
 
         Rectangle centerRect = new Rectangle(new Point(blockX, blockY), blockWidth, blockHeight);
-        Block centerBlock = new Block(centerRect);
+        Block centerBlock = new Block(centerRect,Color.gray);
 
 
         final Color CENTER_BLOCK_COLOR = new Color(156, 50, 90);

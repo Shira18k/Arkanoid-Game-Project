@@ -24,22 +24,22 @@ public class Main1_justBalls {
 
         // קיר שמאלי (x=0, y=0, רוחב=10, גובה=400)
         Rectangle leftRect = new Rectangle(new Point(0, 0), 10, 400);
-        Block leftWall = new Block(leftRect);
+        Block leftWall = new Block(leftRect, Color.gray);
         env.addCollidable(leftWall);
 
         // קיר ימני (x=290, y=0, רוחב=10, גובה=400)
         Rectangle rightRect = new Rectangle(new Point(290, 0), 10, 400);
-        Block rightWall = new Block(rightRect);
+        Block rightWall = new Block(rightRect,Color.gray);
         env.addCollidable(rightWall);
 
         // קיר עליון (x=10, y=0, רוחב=280, גובה=10)
         Rectangle topRect = new Rectangle(new Point(10, 0), 280, 10);
-        Block topWall = new Block(topRect);
+        Block topWall = new Block(topRect,Color.gray);
         env.addCollidable(topWall);
 
         // קיר תחתון (x=10, y=390, רוחב=280, גובה=10)
         Rectangle bottomRect = new Rectangle(new Point(10, 390), 280, 10);
-        Block bottomWall = new Block(bottomRect);
+        Block bottomWall = new Block(bottomRect,Color.gray);
         env.addCollidable(bottomWall);
 
         System.out.println("✓ 4 walls (Block) added to environment\n");
