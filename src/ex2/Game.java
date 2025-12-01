@@ -14,7 +14,7 @@ public class Game {
     private static final int FRAME_WIDTH = 800;
     private static final int FRAME_HEIGHT = 600;
     private static final int BORDER_SIZE = 10; // גודל ה"קירות"
-    private static final int BALL_RADIUS = 5;
+    private static final int BALL_RADIUS = 7;
 
     // אובייקטים פנימיים (מנהלים)
     private GUI gui;
@@ -56,7 +56,7 @@ public class Game {
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - BORDER_SIZE, 0), BORDER_SIZE, FRAME_HEIGHT),Color.GRAY);
         Block topWall = new Block(new Rectangle(new Point(0, 0), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
         Block bottomWall = new Block(new Rectangle(new Point(0, FRAME_HEIGHT - BORDER_SIZE), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
-        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10,gui,Color.BLACK,BORDER_SIZE);
+        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10,gui,Color.decode("#001219"),BORDER_SIZE);
 
         // add to sprite and collidable
         leftWall.addToGame(this);
@@ -67,7 +67,7 @@ public class Game {
 
         //create the blocks
         final int BLOCK_WIDTH = 60;
-        final int BLOCK_HEIGHT = 15;
+        final int BLOCK_HEIGHT = 20;
         final int SPACING = 0; // no space
         // the location of first row(for blocks)
         final int START_Y = 100;
@@ -77,13 +77,13 @@ public class Game {
         final int NUM_ROWS = 6;
 
         //for different colors
-        Color[] rowColors = {Color.GRAY, Color.RED, Color.YELLOW, Color.BLUE, Color.PINK, Color.GREEN};
+        Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
 
         for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
             Color currentColor = rowColors[row];   // different color for each row
             double currentY = START_Y + row * (BLOCK_HEIGHT);
             for (int col = 0; col < BLOCKS_PER_ROW; col++) {
-                double currentX = START_X - col * (BLOCK_WIDTH);
+                double currentX = ( START_X - col * (BLOCK_WIDTH) ) - BORDER_SIZE * 7;
 
                 Rectangle rect = new Rectangle(new Point(currentX, currentY), BLOCK_WIDTH, BLOCK_HEIGHT);// create the block
                 Block newBlock = new Block(rect,currentColor);
@@ -97,10 +97,10 @@ public class Game {
 
         double BALL_START_X = 400;
         double BALL_START_Y = 300;
-        Ball ball1 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.BLACK, this.environment);// 1. נקודת התחלה
+        Ball ball1 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
         ball1.setVelocity(Velocity.fromAngleAndSpeed(45, 4)); // כיוון 45 מעלות, מהירות 4
         ball1.addToGame(this);
-        Ball ball2 =new Ball((new Point(BALL_START_X, BALL_START_Y)), BALL_RADIUS, Color.BLACK, this.environment);
+        Ball ball2 =new Ball((new Point(BALL_START_X, BALL_START_Y)), BALL_RADIUS, Color.decode("#001219"), this.environment);
         ball2.setVelocity(Velocity.fromAngleAndSpeed(20, 4));
         ball2.addToGame(this);
     }
@@ -116,7 +116,7 @@ public class Game {
 
             DrawSurface d = gui.getDrawSurface();
             // blue frame
-            d.setColor(Color.BLUE);
+            d.setColor(Color.decode("#003049"));
             d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
             this.sprites.drawAllOn(d);

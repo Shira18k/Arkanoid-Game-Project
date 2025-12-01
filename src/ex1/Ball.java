@@ -2,6 +2,8 @@ package ex1;
 import ex2.*;
 import biuoop.DrawSurface;
 
+import java.awt.*;
+
 public class Ball implements Sprite {
     private Point center;
     private int r;
@@ -16,7 +18,7 @@ public class Ball implements Sprite {
 
 
     // constructor
-    public Ball(Point c, int r, java.awt.Color color) { ////need to add GameEnvironment environment
+    public Ball(Point c, int r, java.awt.Color color) {
         this.center = c;
         this.r = r;
         this.color = color;
@@ -48,10 +50,12 @@ public class Ball implements Sprite {
     public void drawOn(DrawSurface surface) {
         surface.setColor(color);
         surface.fillCircle((int) center.getX(), (int) center.getY(), r);
+        surface.setColor(Color.BLACK);
+        surface.drawCircle((int) center.getX(), (int) center.getY(), r);
     }
 
     @Override
-    public void timePassed() { // ⭐ הוספת public
+    public void timePassed() {
         this.moveOneStep();
     }
 
@@ -90,7 +94,7 @@ public class Ball implements Sprite {
 
     }
     public void addToGame(Game g) {
-        g.addSprite(this);  // ✅ רק זה!
+        g.addSprite(this);
     }
 
     public void moveOneStep() {
@@ -165,13 +169,6 @@ public class Ball implements Sprite {
 //        Point P = new Point(x, y);
 //        this.setVelocity(new Velocity(dx, dy));
 //        this.center = this.getVelocity().applyToPoint(P);
-//    }
-
-    public static void main(String[] args) {
-//        ex1.Point start = new ex1.Point(30,50);
-//        double dx = 5;
-//        double dy = 6;
-//        drawAnimation(start, dx, dy);
-    }
 }
+
 
