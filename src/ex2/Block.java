@@ -1,19 +1,35 @@
 package ex2;
+
 import biuoop.DrawSurface;
+import ex1.Ball;
 import ex1.Line;
 import ex1.Point;
 import ex1.Velocity;
+import ex3.HitListener;
+import ex3.HitNotifier;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 
-public class Block implements Collidable, Sprite{
+
+public class Block implements Collidable, Sprite, HitNotifier {
     private static final double EPSILON = 0.00001;
     protected Rectangle boundary;
     private java.awt.Color color;
+    private List<HitListener> hitListeners;
 
-    public Block(Rectangle rect,Color c) { //defined the physical information of the block
+
+    public Block(Rectangle rect,Color c) {
+        this(rect, c, new ArrayList<HitListener>());
+    }
+
+    public Block(Rectangle rect,Color c, List<HitListener> hitListeners) { //defined the physical information of the block
         this.boundary = rect;
         this.color = c;
+        this.hitListeners = new ArrayList<>(hitListeners);
     }
+
 
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
@@ -44,7 +60,8 @@ public class Block implements Collidable, Sprite{
 
     @Override// to be sure that the name the same like the original name
     // update (if hit)
-    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+    // !need to change for part 3
+    public Velocity hit(Ball hitter,Point collisionPoint, Velocity currentVelocity) {
         double newDx = currentVelocity.getDX(); // the x value of the speed
         double newDy = currentVelocity.getDY(); // the y value of the speed
 
@@ -68,6 +85,34 @@ public class Block implements Collidable, Sprite{
         }
 
         Velocity newVelocity = new Velocity(newDx, newDy);
+        //!new - part 3.1 - for update the other about hitting for removing
+        this.notifyHit(hitter);
         return newVelocity;
+    }
+
+    // implements hitNotifier
+    @Override
+    public void addHitListener(HitListener hl){
+        this.hitListeners.add(hl);
+    }
+    @Override
+    public void removeHitListener(HitListener hl){
+        this.hitListeners.remove(hl);
+    }
+
+    private void notifyHit(Ball hitter) {
+        // Make a copy of the hitListeners before iterating over them.
+        List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+
+        // Notify all listeners about a hit event:
+        for (HitListener hl : listeners) {
+            hl.hitEvent(this, hitter);
+        }
+    }
+
+    //!new - part 3.1
+    public void removeFromGame(Game game){
+        game.removeSprite(this);
+        game.removeCollidable(this);
     }
 }

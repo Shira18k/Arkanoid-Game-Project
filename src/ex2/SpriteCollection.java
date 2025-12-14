@@ -10,6 +10,12 @@ public class SpriteCollection {
     public void addSprite(Sprite s){
         sprites.add(s);
     }
+
+    //!new - part 3.1 for remove block from the list in game
+    public void removeSprite(Sprite s){
+        sprites.remove(s);
+    }
+
     public SpriteCollection() {
         this.sprites = new ArrayList<>(); // **התיקון הוא כאן!**
     }

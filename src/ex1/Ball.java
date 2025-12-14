@@ -1,7 +1,6 @@
 package ex1;
 import ex2.*;
 import biuoop.DrawSurface;
-
 import java.awt.*;
 
 public class Ball implements Sprite {
@@ -103,14 +102,14 @@ public class Ball implements Sprite {
         Line trajectory = new Line(this.center, nextCenter); // create the relevant line
         //add after claud
         if (environment != null) {
-            CollisionInfo collision = environment.getClosestCollision(trajectory);
+            CollisionInfo collision = environment.getClosestCollision(trajectory,this);
 
             if (collision != null) {
                 Point where_hit = collision.collisionPoint();
                 Collidable who_hit = collision.collisionObject();
 
                 // שנה את המהירות
-                Velocity newVelocity = who_hit.hit(where_hit, this.velocity);
+                Velocity newVelocity = who_hit.hit(this, where_hit, this.velocity);
                 this.velocity = newVelocity;
 
                 // חשב מחדש nextCenter עם המהירות החדשה
@@ -120,55 +119,9 @@ public class Ball implements Sprite {
 
         this.center = nextCenter;
     }
-
-//        CollisionInfo collision = environment.getClosestCollision(trajectory); //the fun that checking closest cut point between line and objs
-//        // now, we get the point the obj that is cutting
-//
-//         if (collision!= null) {
-//            //Check whether the current center point is close to the collision point
-//            Point where_hit = collision.collisionPoint(); //not null
-//            Collidable who_hit = collision.collisionObject(); //not null
-//            if(this.center.isClose(where_hit,r + 1)) {
-//                //defined the current velocity
-//                Velocity velocity_hit = this.velocity;
-//                Velocity newVelocity = who_hit.hit(where_hit, velocity_hit); // the new velocity if hitting
-//                this.velocity = newVelocity;
-//            }
-//        }
-//        //add after claud
-//        this.center = nextCenter;
-//      this.center = this.getVelocity().applyToPoint(nextCenter);
-
-
-    //OneStepBefore
-//        double x = center.getX();
-//        double y = center.getY();
-//
-//        Point p = getVelocity().applyToPoint(this.center); //new point after add dx
-//        double dx = p.getX()-x; // dx for x
-//        double dy = p.getY()-y; // dy for y
-//
-//        if (center.getX() - r <= xStart) {
-//            dx = -dx;
-//            x = r;
-//            Velocity v = new Velocity(dx , dy);
-//        }
-//        if (center.getX() + r >= xbound){
-//            dx = -dx;
-//            x = xbound -r;
-//        }
-//        if (center.getY() - r <= yStart) {
-//            dy = -dy;
-//            y = r;
-//        }
-//        if (center.getY() + r >= ybound) {
-//            dy = -dy;
-//            y = ybound - r;
-//        }
-//        Velocity v = new Velocity(dx , dy);
-//        Point P = new Point(x, y);
-//        this.setVelocity(new Velocity(dx, dy));
-//        this.center = this.getVelocity().applyToPoint(P);
+    public void removeFromGame(Game game){
+        game.removeSprite(this);
+    }
 }
 
 

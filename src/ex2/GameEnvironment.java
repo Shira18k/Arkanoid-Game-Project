@@ -1,4 +1,5 @@
 package ex2;
+import ex1.Ball;
 import ex1.Line;
 
 import java.util.ArrayList;
@@ -20,16 +21,17 @@ public class GameEnvironment {
         collidables.add(c);
     }
 
-//    public int getSizeOfLits(){
-//        return this.size();
-//    }
+    //!new - part 3.1 for remove block from the list in game
+    public void removeCollidable(Collidable c){
+        collidables.remove(c);
+    }
 
     // Assume an object moving from line.start() to line.end().
     // If this object will not collide with any of the collidables
     // in this collection, return null. Else, return the information
     // about the closest collision that is going to occur.
 
-    public CollisionInfo getClosestCollision(Line trajectory) {
+    public CollisionInfo getClosestCollision(Line trajectory, Ball hitter ) {
         //add after claud
         if (collidables == null || collidables.isEmpty()) {
             return null;
@@ -46,12 +48,13 @@ public class GameEnvironment {
                     min_dis = intersection.distance(trajectory.start());
                     closestPoint = intersection;
                     closest_C = c;
+
                 }
             }
         }
         if (closest_C == null) {
             return null;
         }
-        return new CollisionInfo(closestPoint, closest_C);
+        return new CollisionInfo(hitter,closestPoint, closest_C);
     }
 }
