@@ -1,4 +1,5 @@
-package PlayGame;
+package Ass3Game;
+
 import Engine.*;
 import Interfaces.Collidable;
 import Interfaces.HitListener;
@@ -10,8 +11,6 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 import Shapes.Point;
-
-
 import java.awt.Color;
 
 
@@ -59,7 +58,7 @@ public class Game {
 
     public void initialize() {
         //the frame
-        this.gui = new GUI("Game", FRAME_WIDTH, FRAME_HEIGHT);
+        this.gui = new GUI("Ass3Game.Game", FRAME_WIDTH, FRAME_HEIGHT);
 
         // this object is a list of who need to know about hitting
         HitListener block_remove = new BlockRemover(this ,this.blockCounter);

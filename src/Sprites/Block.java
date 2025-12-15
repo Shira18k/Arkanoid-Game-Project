@@ -2,6 +2,7 @@ package Sprites;
 
 import Interfaces.Collidable;
 import Interfaces.Sprite;
+import Ass3Game.Game;
 import Shapes.Rectangle;
 import biuoop.DrawSurface;
 import Engine.Ball;
@@ -10,7 +11,6 @@ import Shapes.Point;
 import Engine.Velocity;
 import Interfaces.HitListener;
 import Interfaces.HitNotifier;
-import PlayGame.Game;
 
 import java.util.ArrayList;
 import java.util.List;

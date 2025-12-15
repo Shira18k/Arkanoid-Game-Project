@@ -10,7 +10,7 @@ import Shapes.Line;
 import Shapes.Point;
 
 import Engine.Velocity;
-import PlayGame.Game;
+import Ass3Game.Game;
 
 import java.awt.*;
 

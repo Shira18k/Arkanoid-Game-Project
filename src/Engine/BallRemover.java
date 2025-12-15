@@ -1,7 +1,7 @@
 package Engine;
 
+import Ass3Game.Game;
 import Sprites.Block;
-import PlayGame.Game;
 import Interfaces.HitListener;
 
 public class BallRemover implements HitListener {

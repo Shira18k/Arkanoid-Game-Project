@@ -1,7 +1,7 @@
 package Engine;
 import Interfaces.Collidable;
 import Interfaces.Sprite;
-import PlayGame.Game;
+import Ass3Game.Game;
 import Shapes.Line;
 import Shapes.Point;
 import biuoop.DrawSurface;
