@@ -1,5 +1,8 @@
-package ex1;
+package PlayGame;
 
+import Engine.Ball;
+import Engine.Velocity;
+import Shapes.Point;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
@@ -54,7 +57,7 @@ public class MultipleFramesBouncingBallsAnimation {
             //Create a random angle
             int angle = rand.nextInt(360);
             Velocity v = Velocity.fromAngleAndSpeed(angle, (123 - size * 10) * 0.05);
-            Ball ball2 = new Ball(new Point(x, y), 3 * size, Color.BLUE);
+            Ball ball2 = new Ball(new Shapes.Point(x, y), 3 * size, Color.BLUE);
             ball2.setbounds(450,450,600, 600);
             ball2.setVelocity(v);
             storage2[i][0] = ball2;

@@ -1,5 +1,7 @@
-package ex1;
+package PlayGame;
 
+import Shapes.Line;
+import Shapes.Point;
 import biuoop.GUI;
 import biuoop.DrawSurface;
 
@@ -37,7 +39,7 @@ public class AbstractArtDrawing {
         }
 
         d.setColor(Color.RED);// from now is red
-        for (int i=0; i<9; i++) { //for each line in ex1.Line[]
+        for (int i=0; i<9; i++) { //for each line in Shapes.Line[]
             for (int j = i+1; j <10; j++) { // check with the other lines
                 if (Lines[i].isIntersecting(Lines[j])) { // check in the fun that return if they have a cut point or not
                     Point P3 = Lines[i].intersectionWith(Lines[j]); // the cut point if true

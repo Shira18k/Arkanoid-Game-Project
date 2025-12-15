@@ -1,12 +1,8 @@
-package ex3;
+package Engine;
 
-import ex1.Ball;
-import ex1.Point;
-import ex2.Block;
-import ex2.Game;
-import ex2.Rectangle;
-
-import java.awt.*;
+import Sprites.Block;
+import PlayGame.Game;
+import Interfaces.HitListener;
 
 public class BallRemover implements HitListener {
     private Game game;

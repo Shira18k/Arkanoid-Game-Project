@@ -1,7 +1,7 @@
-package ex3;
+package Engine;
 
-import ex1.Ball;
-import ex2.Block;
+import Interfaces.HitListener;
+import Sprites.Block;
 
 public class ScoreTrackingListener implements HitListener {
     private Counter currentScore;

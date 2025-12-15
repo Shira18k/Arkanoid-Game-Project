@@ -1,5 +1,9 @@
-package ex1;
-import ex2.*;
+package Engine;
+import Interfaces.Collidable;
+import Interfaces.Sprite;
+import PlayGame.Game;
+import Shapes.Line;
+import Shapes.Point;
 import biuoop.DrawSurface;
 import java.awt.*;
 
@@ -76,7 +80,7 @@ public class Ball implements Sprite {
     }
 
 
-    // new methods by ex1.Velocity
+    // new methods by Engine.Velocity
 
     public void setVelocity(Velocity v) {
         this.velocity = v;

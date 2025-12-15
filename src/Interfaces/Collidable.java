@@ -1,7 +1,8 @@
-package ex2;
-import ex1.Ball;
-import ex1.Velocity;
-import ex1.Point;
+package Interfaces;
+import Engine.Ball;
+import Engine.Velocity;
+import Shapes.Point;
+import Shapes.Rectangle;
 
 public interface Collidable {
 /**Return the "collision shape" of the object**/

@@ -1,9 +1,6 @@
-package ex2;
-import ex1.Ball;
-import ex1.Point;
-import ex3.HitListener;
-
-import java.awt.*;
+package Engine;
+import Shapes.Point;
+import Interfaces.Collidable;
 
 public class CollisionInfo {
     private Ball hitter;

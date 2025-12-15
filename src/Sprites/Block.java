@@ -1,12 +1,16 @@
-package ex2;
+package Sprites;
 
+import Interfaces.Collidable;
+import Interfaces.Sprite;
+import Shapes.Rectangle;
 import biuoop.DrawSurface;
-import ex1.Ball;
-import ex1.Line;
-import ex1.Point;
-import ex1.Velocity;
-import ex3.HitListener;
-import ex3.HitNotifier;
+import Engine.Ball;
+import Shapes.Line;
+import Shapes.Point;
+import Engine.Velocity;
+import Interfaces.HitListener;
+import Interfaces.HitNotifier;
+import PlayGame.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +19,16 @@ import java.awt.*;
 
 public class Block implements Collidable, Sprite, HitNotifier {
     private static final double EPSILON = 0.00001;
-    protected Rectangle boundary;
+    protected Shapes.Rectangle boundary;
     private java.awt.Color color;
     private List<HitListener> hitListeners;
 
 
-    public Block(Rectangle rect,Color c) {
+    public Block(Shapes.Rectangle rect, Color c) {
         this(rect, c, new ArrayList<HitListener>());
     }
 
-    public Block(Rectangle rect,Color c, List<HitListener> hitListeners) { //defined the physical information of the block
+    public Block(Shapes.Rectangle rect, Color c, List<HitListener> hitListeners) { //defined the physical information of the block
         this.boundary = rect;
         this.color = c;
         this.hitListeners = new ArrayList<>(hitListeners);

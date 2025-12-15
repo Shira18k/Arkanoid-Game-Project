@@ -1,6 +1,8 @@
-package ex1;
+package Engine;
 
-// ex1.Velocity specifies the change in position on the `x` and the `y` axes.
+import Shapes.Point;
+
+// Engine.Velocity specifies the change in position on the `x` and the `y` axes.
 public class Velocity {
     private double dx;
     private double dy;

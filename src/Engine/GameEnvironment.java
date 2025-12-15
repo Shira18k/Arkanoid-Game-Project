@@ -1,10 +1,11 @@
-package ex2;
-import ex1.Ball;
-import ex1.Line;
+package Engine;
+import Shapes.Line;
 
 import java.util.ArrayList;
 import java.util.List;
-import ex1.Point;
+import Shapes.Point;
+import Interfaces.Collidable;
+import Shapes.Rectangle;
 
 public class GameEnvironment {
 

@@ -1,5 +1,7 @@
-package ex1;
+package PlayGame;
 
+import Engine.Ball;
+import Shapes.Point;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;

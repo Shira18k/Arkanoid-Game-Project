@@ -1,6 +1,6 @@
 package Tests;
-import ex1.*;
-import ex2.*;
+import Shapes.Line;
+import Shapes.Point;
 
 public class LineTest {
     public static void main(String[] args) {

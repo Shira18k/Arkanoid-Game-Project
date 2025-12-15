@@ -1,4 +1,4 @@
-package ex3;
+package Interfaces;
 
 // this interface made for who need to inform that there was a hit
 public interface HitNotifier {

@@ -1,11 +1,12 @@
 package Tests;
-import ex1.*;
-import ex2.*;
+import Engine.Ball;
+import Engine.Velocity;
+import Shapes.Point;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
-import ex2.GameEnvironment;
+import Engine.GameEnvironment;
 import java.awt.Color;
 
 public class BallDirectTest {

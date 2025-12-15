@@ -1,14 +1,14 @@
-package Mains;
+package PlayGame;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
-import ex1.Ball;
-import ex1.Point;
-import ex1.Velocity;
-import ex2.Block;
-import ex2.GameEnvironment;
-import ex2.Rectangle;
+import Engine.Ball;
+import Shapes.Point;
+import Engine.Velocity;
+import Sprites.Block;
+import Engine.GameEnvironment;
+import Shapes.Rectangle;
 
 import java.awt.*;
 import java.util.Random;

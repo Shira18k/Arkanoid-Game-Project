@@ -1,4 +1,4 @@
-package ex2;
+package Interfaces;
 
 import biuoop.DrawSurface;
 

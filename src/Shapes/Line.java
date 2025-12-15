@@ -1,5 +1,4 @@
-package ex1;
-import ex2.Rectangle;
+package Shapes;
 
 import java.util.List;
 

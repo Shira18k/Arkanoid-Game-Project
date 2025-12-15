@@ -1,5 +1,6 @@
-package ex2;
+package Engine;
 import biuoop.DrawSurface;
+import Interfaces.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;

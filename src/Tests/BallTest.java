@@ -1,6 +1,7 @@
 package Tests;
-import ex1.*;
-import ex2.*;
+import Engine.Ball;
+import Engine.Velocity;
+import Shapes.Point;
 
 import java.awt.Color;
 

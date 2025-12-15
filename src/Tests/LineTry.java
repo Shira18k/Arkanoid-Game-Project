@@ -1,5 +1,5 @@
 package Tests;
-import ex1.Point;
+import Shapes.Point;
 
 public class LineTry {
     //final static double EPS = 0.00001; //אפסילון מסריח

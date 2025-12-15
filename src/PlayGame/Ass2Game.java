@@ -1,4 +1,5 @@
-package ex2;
+package PlayGame;
+
 public class Ass2Game {
 
     public static void main(String[] args) {

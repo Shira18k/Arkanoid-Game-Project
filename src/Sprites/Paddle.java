@@ -1,30 +1,34 @@
-package ex2;
+package Sprites;
+import Interfaces.Collidable;
+import Interfaces.Sprite;
+import Shapes.Rectangle;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import ex1.Ball;
-import ex1.Line;
-import ex1.Point;
+import Engine.Ball;
+import Shapes.Line;
+import Shapes.Point;
 
-import ex1.Velocity;
+import Engine.Velocity;
+import PlayGame.Game;
 
 import java.awt.*;
 
 public class Paddle implements Collidable, Sprite {
     private static final double EPSILON = 0.00001;
-    protected Rectangle paddle;
+    protected Shapes.Rectangle paddle;
     private KeyboardSensor keyboard;
     double MOVESPEED;
     //    private int frameHeight;
     private int borderSize;
     private Velocity v_left = new Velocity(-MOVESPEED, 0);
     private Velocity v_right = new Velocity(MOVESPEED, 0);
-    private Rectangle boundary;
+    private Shapes.Rectangle boundary;
     private Color color;
 
     public Paddle(double width, double length, double speed, GUI gui, Color c, int borderSize) {
         this.color = c;
-        this.boundary = (new Rectangle(new Point(width / 2 - width / 10, length - length / 10), width / 5, length / 17));
+        this.boundary = (new Shapes.Rectangle(new Point(width / 2 - width / 10, length - length / 10), width / 5, length / 17));
         MOVESPEED = speed;
         keyboard = gui.getKeyboardSensor();
         this.borderSize = borderSize;
@@ -37,7 +41,7 @@ public class Paddle implements Collidable, Sprite {
         double newX = currentUpperLeft.getX() - MOVESPEED;
         //if the block colliding with the left wall
         if (newX >= borderSize) {
-            this.boundary = new Rectangle(new Point(newX, currentUpperLeft.getY()), this.boundary.getWidth(), this.boundary.getHeight());
+            this.boundary = new Shapes.Rectangle(new Point(newX, currentUpperLeft.getY()), this.boundary.getWidth(), this.boundary.getHeight());
         }
     }
 
@@ -49,7 +53,7 @@ public class Paddle implements Collidable, Sprite {
         double paddleWidth = this.boundary.getWidth(); // (width frame/5)
         double frameWidth = paddleWidth * 5;
         if (newX + paddleWidth <= frameWidth - borderSize) {
-            this.boundary = new Rectangle(new Point(newX, currentUpperLeft.getY()), this.boundary.getWidth(), this.boundary.getHeight());
+            this.boundary = new Shapes.Rectangle(new Point(newX, currentUpperLeft.getY()), this.boundary.getWidth(), this.boundary.getHeight());
         }
     }
 

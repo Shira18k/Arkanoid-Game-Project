@@ -1,5 +1,8 @@
-package ex1;
+package PlayGame;
 
+import Engine.Ball;
+import Engine.Velocity;
+import Shapes.Point;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
@@ -39,7 +42,7 @@ public class MultipleBouncingBallsAnimation {
         for (int i = 0; i < 6; i++) {
             int x1 = rand.nextInt(300) + 1; // get integer in range 1-400
             int y1 = rand.nextInt(400) + 1; // get integer in range 1-300
-            Point point = new Point(x1, y1);
+            Point point = new Shapes.Point(x1, y1);
             System.out.println(args[i]);
             int size = Integer.parseInt(args[i]); // from main
             Ball current = new Ball(point, size, Color.blue); // defined ball by size and random location

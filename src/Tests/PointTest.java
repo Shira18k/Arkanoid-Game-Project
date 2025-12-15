@@ -1,6 +1,6 @@
 package Tests;
 
-import ex1.Point;
+import Shapes.Point;
 
 public class PointTest {
     public static void main(String[] args) {

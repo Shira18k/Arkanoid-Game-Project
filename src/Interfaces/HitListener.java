@@ -1,6 +1,6 @@
-package ex3;
-import ex1.Ball;
-import ex2.Block;
+package Interfaces;
+import Engine.Ball;
+import Sprites.Block;
 
 //this interface made for who needs to now about hitting in block
 public interface HitListener {

@@ -1,16 +1,16 @@
 //public class saveBullshitFromLine {
-//    public ex1.Point p3(ex1.Line other) {
+//    public Shapes.Point p3(Shapes.Line other) {
 //        double m1 = (end.getY() - start.getY()) / (end.getX() - start.getX());
 //        double m2 = (other.end.getY() - other.start.getY()) / (other.end.getX() - other.start.getX());
 //        double b1 = start.getY() - (m1 * start.getX());
 //        double b2 = other.start.getY() - (m2 * other.start.getX());
 //        double x3 = ((b2 - b1) / (m1 - m2));
 //        double y3 = m1 * x3 + b1;
-//        return (new ex1.Point(x3, y3));
+//        return (new Shapes.Point(x3, y3));
 //    }
 //
 //    // Returns true if the lines intersect, false otherwise
-//    public boolean isIntersecting(ex1.Line other) {
+//    public boolean isIntersecting(Shapes.Line other) {
 //        double m1 = (end.getY() - start.getY()) / (end.getX() - start.getX());
 //        double m2 = (other.end.getY() - other.start.getY()) / (other.end.getX() - other.start.getX());
 //        if (m1 == m2) { // checking gradient
@@ -33,7 +33,7 @@
 //
 //    // Returns the intersection point if the lines intersect,
 //    // and null otherwise. - להחזיר את הנקודת חיתוך במידה ויש
-//    public ex1.Point intersectionWith(ex1.Line other) {
+//    public Shapes.Point intersectionWith(Shapes.Line other) {
 //        if (isIntersecting(other)){
 //            return (p3(other));
 //        }
@@ -41,7 +41,7 @@
 //    }
 //
 //    // equals -- return true is the lines are equal, false otherwise -אפשר לקחת מפוינט את איקוול עבור סטאר של הנקודה ושל other
-//    public boolean equals(ex1.Line other) {
+//    public boolean equals(Shapes.Line other) {
 //        if (start.equals(other.start) && end.equals(other.end)){
 //            return true;
 //        }else{

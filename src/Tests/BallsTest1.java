@@ -5,8 +5,8 @@ import biuoop.DrawSurface;
 
 import java.awt.*;
 
-import ex1.Ball;
-import ex1.Point;
+import Engine.Ball;
+import Shapes.Point;
 
 
 public class BallsTest1 {

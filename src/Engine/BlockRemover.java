@@ -1,8 +1,8 @@
-package ex3;
+package Engine;
 
-import ex1.Ball;
-import ex2.Block;
-import ex2.Game;
+import Sprites.Block;
+import PlayGame.Game;
+import Interfaces.HitListener;
 
 public class BlockRemover implements HitListener {
 

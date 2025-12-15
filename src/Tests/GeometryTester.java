@@ -1,7 +1,10 @@
-package ex1;
+package Tests;
+
+import Shapes.Line;
+import Shapes.Point;
 
 /**
- * This class does some simple tessting of the ex1.Point and ex1.Line classes.
+ * This class does some simple tessting of the Shapes.Point and Shapes.Line classes.
  */
 public class GeometryTester {
 
@@ -18,7 +21,7 @@ public class GeometryTester {
     }
 
     /**
-     * The method is in charge of testing the ex1.Point class.
+     * The method is in charge of testing the Shapes.Point class.
      *
      * @return true if not mistakes were found, false otherwise.
      */
@@ -64,7 +67,7 @@ public class GeometryTester {
     }
 
     /**
-     * The method is in charge of testing the ex1.Line class.
+     * The method is in charge of testing the Shapes.Line class.
      *
      * @return true if not mistakes were found, false otherwise.
      */

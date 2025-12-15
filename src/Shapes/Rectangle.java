@@ -1,6 +1,4 @@
-package ex2;
-import ex1.Line;
-import ex1.Point;
+package Shapes;
 import java.util.ArrayList;
 import java.util.List;
 

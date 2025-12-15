@@ -1,10 +1,15 @@
-package ex2;
+package PlayGame;
+import Engine.*;
+import Interfaces.Collidable;
+import Interfaces.HitListener;
+import Interfaces.Sprite;
+import Shapes.Rectangle;
+import Sprites.Block;
+import Sprites.Paddle;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
-import ex1.*;
-import ex1.Point;
-import ex3.*;
+import Shapes.Point;
 
 
 import java.awt.Color;

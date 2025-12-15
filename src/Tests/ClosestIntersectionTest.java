@@ -1,7 +1,7 @@
 package Tests;
-import ex1.Point;
-import ex1.Line;
-import ex2.Rectangle;
+import Shapes.Point;
+import Shapes.Line;
+import Shapes.Rectangle;
 
 public class ClosestIntersectionTest {
 

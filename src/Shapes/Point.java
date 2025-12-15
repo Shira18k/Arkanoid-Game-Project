@@ -1,4 +1,4 @@
-package ex1;
+package Shapes;
 
 public class Point {
     private double x;
