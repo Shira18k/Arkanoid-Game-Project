@@ -125,4 +125,9 @@ public class Paddle implements Collidable, Sprite {
         g.addSprite(this);
         g.addCollidable(this);
     }
+
+    // add for levels
+    public double paddleSpeed(){
+        return this.MOVESPEED;
+    }
 }

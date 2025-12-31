@@ -1,10 +1,7 @@
 package Ass3Game;
 
 import Engine.*;
-import Interfaces.Animation;
-import Interfaces.Collidable;
-import Interfaces.HitListener;
-import Interfaces.Sprite;
+import Interfaces.*;
 import Shapes.Rectangle;
 import Sprites.Block;
 import Sprites.Paddle;
@@ -14,6 +11,7 @@ import biuoop.Sleeper;
 import Shapes.Point;
 import java.awt.Color;
 import biuoop.KeyboardSensor;
+
 
 
 
@@ -36,6 +34,7 @@ public class GameLevel implements Animation {
     private AnimationRunner runner;
     private boolean running;
     private KeyboardSensor keyboard;
+    private LevelInformation levelInfo;
 
 
     //constructor
@@ -46,7 +45,10 @@ public class GameLevel implements Animation {
         this.blockCounter = new Counter(0);
         this.ballCounter = new Counter(0);
         this.scoreCounter = new Counter(0);
-
+    }
+    //for levelInfo
+    public void setLevelInformation(LevelInformation info) {
+        this.levelInfo = info;
     }
 
     // accept every obj with the methods from Collidable
@@ -66,10 +68,15 @@ public class GameLevel implements Animation {
     // and add them to the game.
 
     public void initialize() {
-        //the frame
-        this.gui = new GUI("Ass3Game.GameLevel", FRAME_WIDTH, FRAME_HEIGHT);
-        // new - control animation -
-        this.runner = new AnimationRunner(this.gui, 60, new Sleeper());
+        // now - printed by levelInfo
+        Sprite background = levelInfo.getBackground();
+        this.sprites.addSprite(background);
+
+        //the frame - off
+//        this.gui = new GUI("Ass3Game.GameLevel", FRAME_WIDTH, FRAME_HEIGHT);
+//        // new - control animation -
+//        this.runner = new AnimationRunner(this.gui, 60, new Sleeper());
+
 
         // this object is a list of who need to know about hitting
         HitListener block_remove = new BlockRemover(this ,this.blockCounter);
@@ -81,7 +88,9 @@ public class GameLevel implements Animation {
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - BORDER_SIZE, 0), BORDER_SIZE, FRAME_HEIGHT),Color.GRAY);
         Block topWall = new Block(new Rectangle(new Point(0, 0), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
         Block bottomWall = new Block(new Rectangle(new Point(0, FRAME_HEIGHT - BORDER_SIZE), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
-        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10, this.gui ,Color.decode("#001219"),BORDER_SIZE);
+
+        // new - by info
+        Paddle paddle = new Paddle(levelInfo.paddleWidth(),FRAME_HEIGHT, levelInfo.paddleSpeed(), this.gui ,Color.decode("#001219"),BORDER_SIZE);
 
         // add to sprite and collidable
         leftWall.addToGame(this);
@@ -93,54 +102,68 @@ public class GameLevel implements Animation {
         //Add a death listener to a bottom wall
         bottomWall.addHitListener(ball_remove);
 
-        //create the blocks
-        final int BLOCK_WIDTH = 60;
-        final int BLOCK_HEIGHT = 20;
-        final int SPACING = 0; // no space
-        // the location of first row(for blocks)
-        final int START_Y = 100;
-        final int START_X = 800; // the corner
-
-        int BLOCKS_PER_ROW = 12;
-        final int NUM_ROWS = 6;
-
-        //for different colors
-        Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
-
-        // create a block for checking
-
-        for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
-            Color currentColor = rowColors[row];   // different color for each row
-            double currentY = START_Y + row * (BLOCK_HEIGHT);
-            for (int col = 0; col < BLOCKS_PER_ROW; col++) {
-                double currentX = ( START_X - col * (BLOCK_WIDTH) ) - BORDER_SIZE * 7;
-                Rectangle rect = new Rectangle(new Point(currentX, currentY), BLOCK_WIDTH, BLOCK_HEIGHT);// create the block
-                Block newBlock = new Block(rect,currentColor);
-                newBlock.addToGame(this);// add to sprite & collidable
-                this.blockCounter.increase(1);
-                newBlock.addHitListener(block_remove);
-                newBlock.addHitListener(score);
-            }
-            BLOCKS_PER_ROW = BLOCKS_PER_ROW - 1;
+        // new - creat blocks bu info
+        for (Block b : levelInfo.blocks()) {
+            b.addToGame(this);
+            this.blockCounter.increase(1);
         }
-        // create the ball
-        double BALL_START_X = 400;
-        double BALL_START_Y = 300;
-        Ball ball1 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
-        ball1.setVelocity(Velocity.fromAngleAndSpeed(45, 4));
-        ball1.addToGame(this);
-        this.ballCounter.increase(1);
+        // off for now
+//        //create the blocks
+//        final int BLOCK_WIDTH = 60;
+//        final int BLOCK_HEIGHT = 20;
+//        final int SPACING = 0; // no space
+//        // the location of first row(for blocks)
+//        final int START_Y = 100;
+//        final int START_X = 800; // the corner
+//
+//        int BLOCKS_PER_ROW = 12;
+//        final int NUM_ROWS = 6;
+//
+//        //for different colors
+//        Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
+//
+//        // create a block for checking
+//        for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
+//            Color currentColor = rowColors[row];   // different color for each row
+//            double currentY = START_Y + row * (BLOCK_HEIGHT);
+//            for (int col = 0; col < BLOCKS_PER_ROW; col++) {
+//                double currentX = ( START_X - col * (BLOCK_WIDTH) ) - BORDER_SIZE * 7;
+//                Rectangle rect = new Rectangle(new Point(currentX, currentY), BLOCK_WIDTH, BLOCK_HEIGHT);// create the block
+//                Block newBlock = new Block(rect,currentColor);
+//                newBlock.addToGame(this);// add to sprite & collidable
+//                this.blockCounter.increase(1);
+//                newBlock.addHitListener(block_remove);
+//                newBlock.addHitListener(score);
+//            }
+//            BLOCKS_PER_ROW = BLOCKS_PER_ROW - 1;
+//        }
 
-        Ball ball2 =new Ball((new Point(BALL_START_X, BALL_START_Y)), BALL_RADIUS, Color.decode("#001219"), this.environment);
-        ball2.setVelocity(Velocity.fromAngleAndSpeed(20, 4));
-        ball2.addToGame(this);
-        this.ballCounter.increase(1);
-
-        Ball ball3 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
-        ball3.setVelocity(Velocity.fromAngleAndSpeed(70, 4));
-        ball3.addToGame(this);
-        this.ballCounter.increase(1);
-    }
+        // create the balls by info
+        for (Velocity v : levelInfo.initialBallVelocities()) {
+            Ball ball = new Ball(new Point (400,500), 5, Color.WHITE); // מיקום התחלתי
+            ball.setVelocity(v);
+            ball.addToGame(this);
+            this.ballCounter.increase(1);
+        }
+// off for now
+//        // create the ball
+//        double BALL_START_X = 400;
+//        double BALL_START_Y = 300;
+//        Ball ball1 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
+//        ball1.setVelocity(Velocity.fromAngleAndSpeed(45, 4));
+//        ball1.addToGame(this);
+//        this.ballCounter.increase(1);
+//
+//        Ball ball2 =new Ball((new Point(BALL_START_X, BALL_START_Y)), BALL_RADIUS, Color.decode("#001219"), this.environment);
+//        ball2.setVelocity(Velocity.fromAngleAndSpeed(20, 4));
+//        ball2.addToGame(this);
+//        this.ballCounter.increase(1);
+//
+//        Ball ball3 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
+//        ball3.setVelocity(Velocity.fromAngleAndSpeed(70, 4));
+//        ball3.addToGame(this);
+//        this.ballCounter.increase(1);
+        }
 
     // new - Animation
     public boolean shouldStop() {
