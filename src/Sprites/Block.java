@@ -1,8 +1,8 @@
 package Sprites;
 
+import Ass3Game.GameLevel;
 import Interfaces.Collidable;
 import Interfaces.Sprite;
-import Ass3Game.Game;
 import Shapes.Rectangle;
 import biuoop.DrawSurface;
 import Engine.Ball;
@@ -57,7 +57,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
         return this.boundary; // return the physical information of the block
     }
 
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
         g.addCollidable(this);
     }
@@ -115,7 +115,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     }
 
     //!new - part 3.1
-    public void removeFromGame(Game game){
+    public void removeFromGame(GameLevel game){
         game.removeSprite(this);
         game.removeCollidable(this);
     }

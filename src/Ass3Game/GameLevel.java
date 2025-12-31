@@ -1,6 +1,7 @@
 package Ass3Game;
 
 import Engine.*;
+import Interfaces.Animation;
 import Interfaces.Collidable;
 import Interfaces.HitListener;
 import Interfaces.Sprite;
@@ -12,10 +13,12 @@ import biuoop.GUI;
 import biuoop.Sleeper;
 import Shapes.Point;
 import java.awt.Color;
+import biuoop.KeyboardSensor;
 
 
 
-public class Game {
+
+public class GameLevel implements Animation {
 
     private static final int FRAME_WIDTH = 800;
     private static final int FRAME_HEIGHT = 600;
@@ -29,15 +32,21 @@ public class Game {
     private Counter blockCounter;
     private Counter ballCounter;
     private Counter scoreCounter;
+    // new - Animation level 4
+    private AnimationRunner runner;
+    private boolean running;
+    private KeyboardSensor keyboard;
+
 
     //constructor
-    public Game() {
+    public GameLevel() {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.sleeper = new Sleeper();
         this.blockCounter = new Counter(0);
         this.ballCounter = new Counter(0);
         this.scoreCounter = new Counter(0);
+
     }
 
     // accept every obj with the methods from Collidable
@@ -58,7 +67,9 @@ public class Game {
 
     public void initialize() {
         //the frame
-        this.gui = new GUI("Ass3Game.Game", FRAME_WIDTH, FRAME_HEIGHT);
+        this.gui = new GUI("Ass3Game.GameLevel", FRAME_WIDTH, FRAME_HEIGHT);
+        // new - control animation -
+        this.runner = new AnimationRunner(this.gui, 60, new Sleeper());
 
         // this object is a list of who need to know about hitting
         HitListener block_remove = new BlockRemover(this ,this.blockCounter);
@@ -70,7 +81,7 @@ public class Game {
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - BORDER_SIZE, 0), BORDER_SIZE, FRAME_HEIGHT),Color.GRAY);
         Block topWall = new Block(new Rectangle(new Point(0, 0), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
         Block bottomWall = new Block(new Rectangle(new Point(0, FRAME_HEIGHT - BORDER_SIZE), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
-        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10,gui,Color.decode("#001219"),BORDER_SIZE);
+        Paddle paddle = new Paddle(FRAME_WIDTH,FRAME_HEIGHT,10, this.gui ,Color.decode("#001219"),BORDER_SIZE);
 
         // add to sprite and collidable
         leftWall.addToGame(this);
@@ -97,7 +108,6 @@ public class Game {
         Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
 
         // create a block for checking
-
 
         for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
             Color currentColor = rowColors[row];   // different color for each row
@@ -127,44 +137,83 @@ public class Game {
         this.ballCounter.increase(1);
 
         Ball ball3 = new Ball(new Point(BALL_START_X, BALL_START_Y), BALL_RADIUS, Color.decode("#001219"), this.environment);// 1. נקודת התחלה
-        ball1.setVelocity(Velocity.fromAngleAndSpeed(70, 4));
-        ball1.addToGame(this);
+        ball3.setVelocity(Velocity.fromAngleAndSpeed(70, 4));
+        ball3.addToGame(this);
         this.ballCounter.increase(1);
+    }
+
+    // new - Animation
+    public boolean shouldStop() {
+        return !this.running;
+    }
+
+    public void doOneFrame(DrawSurface d) {
+        // the logic from the previous run method goes here.
+        // the `return` or `break` statements should be replaced with
+
+        keyboard = gui.getKeyboardSensor();
+        d.setColor(Color.decode("#003049"));
+        d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+
+        this.sprites.drawAllOn(d);
+
+        updateScore(d, this.scoreCounter);
+
+        //gui.show(d);
+
+        this.sprites.notifyAllTimePassed();
+
+        if (this.keyboard.isPressed("p")) {
+            this.runner.run(new PauseScreen(this.keyboard));
+        }
+
+        if(blockCounter.getValue() == 0){
+            this.scoreCounter.increase(100);
+            this.running = false;
+        }
+        if (ballCounter.getValue() == 0 ){
+            this.running = false;
+        }
     }
 
     // Run the game -- start the animation loop.
     public void run() {
-        int framesPerSecond = 60;
-        int millisecondsPerFrame = 1000 / framesPerSecond;
-        while (true) {
-            if(blockCounter.getValue() == 0){
-                this.scoreCounter.increase(100);
-                gui.close();
-            }
-            if (ballCounter.getValue() == 0 ){
-                gui.close();
-            }
-
-            long startTime = System.currentTimeMillis(); // timing
-
-            DrawSurface d = gui.getDrawSurface();
-            // blue frame
-            d.setColor(Color.decode("#003049"));
-            d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
-
-            updateScore(d, this.scoreCounter);
-            this.sprites.drawAllOn(d);
-            gui.show(d);
-            this.sprites.notifyAllTimePassed();
-
-            // timing
-            long usedTime = System.currentTimeMillis() - startTime;
-            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-            if (milliSecondLeftToSleep > 0) {
-                sleeper.sleepFor(milliSecondLeftToSleep);
-            }
-        }
+        this.initialize();
+        this.running = true;
+        // use our runner to run the current animation -- which is one turn of
+        // the game.
+        this.runner.run(this);
     }
+
+//        while (true) {
+//            if(blockCounter.getValue() == 0){
+//                this.scoreCounter.increase(100);
+//                gui.close();
+//            }
+//            if (ballCounter.getValue() == 0 ){
+//                gui.close();
+//            }
+//
+//            long startTime = System.currentTimeMillis(); // timing
+//
+//            DrawSurface d = gui.getDrawSurface();
+//            // blue frame
+//            d.setColor(Color.decode("#003049"));
+//            d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+//
+//            updateScore(d, this.scoreCounter);
+//            this.sprites.drawAllOn(d);
+//            gui.show(d);
+//            this.sprites.notifyAllTimePassed();
+//
+//            // timing
+//            long usedTime = System.currentTimeMillis() - startTime;
+//            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
+//            if (milliSecondLeftToSleep > 0) {
+//                sleeper.sleepFor(milliSecondLeftToSleep);
+//            }
+//        }
+//    }
 
     public void updateScore(DrawSurface d, Counter score){
         String msg = "score = :" + score.getValue();
@@ -177,4 +226,5 @@ public class Game {
     public void removeSprite(Sprite s){
         this.sprites.removeSprite(s);
     }
+
 }

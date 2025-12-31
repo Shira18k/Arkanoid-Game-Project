@@ -1,15 +1,15 @@
 package Engine;
 
-import Ass3Game.Game;
+import Ass3Game.GameLevel;
 import Sprites.Block;
 import Interfaces.HitListener;
 
 public class BallRemover implements HitListener {
-    private Game game;
+    private GameLevel game;
     private Counter remainingBalls;
     private Block deathArea;
 
-    public BallRemover(Game game, Counter removedBalls) {
+    public BallRemover(GameLevel game, Counter removedBalls) {
         this.game = game;
         this.remainingBalls = removedBalls;
         // the bottom block

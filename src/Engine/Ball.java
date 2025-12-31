@@ -1,7 +1,7 @@
 package Engine;
+import Ass3Game.GameLevel;
 import Interfaces.Collidable;
 import Interfaces.Sprite;
-import Ass3Game.Game;
 import Shapes.Line;
 import Shapes.Point;
 import biuoop.DrawSurface;
@@ -96,7 +96,7 @@ public class Ball implements Sprite {
         return this.velocity; //new object
 
     }
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
     }
 
@@ -123,7 +123,7 @@ public class Ball implements Sprite {
 
         this.center = nextCenter;
     }
-    public void removeFromGame(Game game){
+    public void removeFromGame(GameLevel game){
         game.removeSprite(this);
     }
 }

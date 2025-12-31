@@ -1,4 +1,5 @@
 package Sprites;
+import Ass3Game.GameLevel;
 import Interfaces.Collidable;
 import Interfaces.Sprite;
 import Shapes.Rectangle;
@@ -10,7 +11,6 @@ import Shapes.Line;
 import Shapes.Point;
 
 import Engine.Velocity;
-import Ass3Game.Game;
 
 import java.awt.*;
 
@@ -69,6 +69,7 @@ public class Paddle implements Collidable, Sprite {
     //implements sprite
     @Override
     public void drawOn(DrawSurface surface) {
+
         surface.setColor(this.color);
         //up_left point
         int x = (int) this.boundary.getUpperLeft().getX();
@@ -120,7 +121,7 @@ public class Paddle implements Collidable, Sprite {
         Velocity newVelocity = new Velocity(newDx, newDy);
         return newVelocity;
     }
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
         g.addCollidable(this);
     }
