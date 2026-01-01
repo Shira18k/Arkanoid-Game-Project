@@ -1,9 +1,10 @@
-package Ass3Game;
+package Ass4Game;
 
 import Engine.*;
 import Interfaces.*;
 import Shapes.Rectangle;
 import Sprites.Block;
+import Sprites.LevelName;
 import Sprites.Paddle;
 import biuoop.DrawSurface;
 import biuoop.GUI;
@@ -28,8 +29,9 @@ public class GameLevel implements Animation {
     private GameEnvironment environment;
     private Sleeper sleeper;
     private Counter blockCounter;
-    private Counter ballCounter;
+    protected Counter ballCounter;
     private Counter scoreCounter;
+
     // new - Animation level 4
     private AnimationRunner runner;
     private boolean running;
@@ -38,17 +40,19 @@ public class GameLevel implements Animation {
 
 
     //constructor
-    public GameLevel() {
+    public GameLevel(LevelInformation levelInfo, AnimationRunner runner , KeyboardSensor keyboard , Counter score) {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.sleeper = new Sleeper();
         this.blockCounter = new Counter(0);
         this.ballCounter = new Counter(0);
-        this.scoreCounter = new Counter(0);
-    }
-    //for levelInfo
-    public void setLevelInformation(LevelInformation info) {
-        this.levelInfo = info;
+        //this.scoreCounter = new Counter(0);
+        this.scoreCounter = score;
+        // new - part 4
+        this.levelInfo = levelInfo; // the level of the game
+        this.runner = runner;
+        this.gui = gui;
+        this.keyboard = keyboard;
     }
 
     // accept every obj with the methods from Collidable
@@ -68,14 +72,16 @@ public class GameLevel implements Animation {
     // and add them to the game.
 
     public void initialize() {
+
         // now - printed by levelInfo
         Sprite background = levelInfo.getBackground();
         this.sprites.addSprite(background);
 
-        //the frame - off
-//        this.gui = new GUI("Ass3Game.GameLevel", FRAME_WIDTH, FRAME_HEIGHT);
-//        // new - control animation -
-//        this.runner = new AnimationRunner(this.gui, 60, new Sleeper());
+        String name = this.levelInfo.levelName(); // כאן את מושכת את השם ("Direct Hit" למשל)
+        LevelName nameIndicator = new LevelName(name);
+
+        // 3. הוספת המדפיס לרשימת ה-Sprites של המשחק
+        this.addSprite(nameIndicator);
 
 
         // this object is a list of who need to know about hitting
@@ -83,29 +89,34 @@ public class GameLevel implements Animation {
         HitListener ball_remove = new BallRemover(this , this.ballCounter);
         HitListener score = new ScoreTrackingListener(this.scoreCounter);
 
-        //the blocks
+        //the bourds
         Block leftWall = new Block(new Rectangle(new Point(0, 0), BORDER_SIZE, FRAME_HEIGHT),Color.GRAY);
         Block rightWall = new Block(new Rectangle(new Point(FRAME_WIDTH - BORDER_SIZE, 0), BORDER_SIZE, FRAME_HEIGHT),Color.GRAY);
         Block topWall = new Block(new Rectangle(new Point(0, 0), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
         Block bottomWall = new Block(new Rectangle(new Point(0, FRAME_HEIGHT - BORDER_SIZE), FRAME_WIDTH, BORDER_SIZE),Color.GRAY);
 
-        // new - by info
-        Paddle paddle = new Paddle(levelInfo.paddleWidth(),FRAME_HEIGHT, levelInfo.paddleSpeed(), this.gui ,Color.decode("#001219"),BORDER_SIZE);
 
         // add to sprite and collidable
         leftWall.addToGame(this);
         rightWall.addToGame(this);
         topWall.addToGame(this);
         bottomWall.addToGame(this);
-        paddle.addToGame(this);
 
         //Add a death listener to a bottom wall
         bottomWall.addHitListener(ball_remove);
 
-        // new - creat blocks bu info
-        for (Block b : levelInfo.blocks()) {
-            b.addToGame(this);
+        // new - by info
+        Paddle paddle = new Paddle(levelInfo.paddleWidth(),FRAME_HEIGHT, levelInfo.paddleSpeed(), this.keyboard ,Color.WHITE,BORDER_SIZE);
+        // check
+        System.out.println(paddle);
+        paddle.addToGame(this);
+
+        // new - create blocks by info
+        for (Block block : levelInfo.blocks()) {
+            block.addToGame(this);
             this.blockCounter.increase(1);
+            block.addHitListener(block_remove);
+            block.addHitListener(score);
         }
         // off for now
 //        //create the blocks
@@ -140,7 +151,7 @@ public class GameLevel implements Animation {
 
         // create the balls by info
         for (Velocity v : levelInfo.initialBallVelocities()) {
-            Ball ball = new Ball(new Point (400,500), 5, Color.WHITE); // מיקום התחלתי
+            Ball ball = new Ball(new Point (400,500), 5, Color.WHITE, this.environment); // first position
             ball.setVelocity(v);
             ball.addToGame(this);
             this.ballCounter.increase(1);
@@ -165,36 +176,32 @@ public class GameLevel implements Animation {
 //        this.ballCounter.increase(1);
         }
 
+
     // new - Animation
+    @Override
     public boolean shouldStop() {
         return !this.running;
     }
 
+    @Override
     public void doOneFrame(DrawSurface d) {
         // the logic from the previous run method goes here.
         // the `return` or `break` statements should be replaced with
 
-        keyboard = gui.getKeyboardSensor();
-        d.setColor(Color.decode("#003049"));
-        d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
-
         this.sprites.drawAllOn(d);
 
         updateScore(d, this.scoreCounter);
-
-        //gui.show(d);
 
         this.sprites.notifyAllTimePassed();
 
         if (this.keyboard.isPressed("p")) {
             this.runner.run(new PauseScreen(this.keyboard));
         }
-
-        if(blockCounter.getValue() == 0){
-            this.scoreCounter.increase(100);
+        if (ballCounter.getValue() == 0 ){
             this.running = false;
         }
-        if (ballCounter.getValue() == 0 ){
+        if(blockCounter.getValue() == 0){
+            this.scoreCounter.increase(100);
             this.running = false;
         }
     }
@@ -203,44 +210,15 @@ public class GameLevel implements Animation {
     public void run() {
         this.initialize();
         this.running = true;
+        System.out.println(ballCounter);
         // use our runner to run the current animation -- which is one turn of
         // the game.
         this.runner.run(this);
     }
 
-//        while (true) {
-//            if(blockCounter.getValue() == 0){
-//                this.scoreCounter.increase(100);
-//                gui.close();
-//            }
-//            if (ballCounter.getValue() == 0 ){
-//                gui.close();
-//            }
-//
-//            long startTime = System.currentTimeMillis(); // timing
-//
-//            DrawSurface d = gui.getDrawSurface();
-//            // blue frame
-//            d.setColor(Color.decode("#003049"));
-//            d.fillRectangle(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
-//
-//            updateScore(d, this.scoreCounter);
-//            this.sprites.drawAllOn(d);
-//            gui.show(d);
-//            this.sprites.notifyAllTimePassed();
-//
-//            // timing
-//            long usedTime = System.currentTimeMillis() - startTime;
-//            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-//            if (milliSecondLeftToSleep > 0) {
-//                sleeper.sleepFor(milliSecondLeftToSleep);
-//            }
-//        }
-//    }
-
     public void updateScore(DrawSurface d, Counter score){
         String msg = "score = :" + score.getValue();
-        d.setColor(Color.black);
+        d.setColor(Color.RED);
         d.drawText(45, 45, msg, 20);
     }
     public void removeCollidable(Collidable c){
@@ -248,6 +226,14 @@ public class GameLevel implements Animation {
     }
     public void removeSprite(Sprite s){
         this.sprites.removeSprite(s);
+    }
+
+    public int getRAmountOfBlocks() {
+        return this.blockCounter.getValue();
+    }
+
+    public int getAmountOfBalls() {
+        return this.ballCounter.getValue();
     }
 
 }

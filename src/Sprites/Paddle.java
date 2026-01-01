@@ -1,10 +1,9 @@
 package Sprites;
-import Ass3Game.GameLevel;
+import Ass4Game.GameLevel;
 import Interfaces.Collidable;
 import Interfaces.Sprite;
 import Shapes.Rectangle;
 import biuoop.DrawSurface;
-import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import Engine.Ball;
 import Shapes.Line;
@@ -26,11 +25,11 @@ public class Paddle implements Collidable, Sprite {
     private Shapes.Rectangle boundary;
     private Color color;
 
-    public Paddle(double width, double length, double speed, GUI gui, Color c, int borderSize) {
+    public Paddle(double width, double length, double speed, KeyboardSensor keyboard, Color c, int borderSize) {
         this.color = c;
         this.boundary = (new Shapes.Rectangle(new Point(width / 2 - width / 10, length - length / 10), width / 5, length / 17));
         MOVESPEED = speed;
-        keyboard = gui.getKeyboardSensor();
+        this.keyboard = keyboard;
         this.borderSize = borderSize;
     }
 

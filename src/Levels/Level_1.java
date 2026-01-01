@@ -12,11 +12,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Green3 implements LevelInformation {
+public class Level_1 implements LevelInformation {
 
     @Override
     public int numberOfBalls(){
-        return 3;
+        return 1;
     }
 
     // The initial velocity of each ball
@@ -24,9 +24,7 @@ public class Green3 implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities(){
         List<Velocity> velocities = new ArrayList<>();
-        velocities.add(Velocity.fromAngleAndSpeed(24, 4));
-        velocities.add(Velocity.fromAngleAndSpeed(40, 4));
-        velocities.add(Velocity.fromAngleAndSpeed(70, 4));
+        velocities.add(Velocity.fromAngleAndSpeed(0, 5));
         return velocities;
     }
 
@@ -37,13 +35,13 @@ public class Green3 implements LevelInformation {
 
     @Override
     public int paddleWidth(){
-        return 10;
+        return 800;
     }
 
     // the level name will be displayed at the top of the screen.
     @Override
     public String levelName(){
-        return "Green 3";
+        return "Direct Hit";
 
     }
 
@@ -55,8 +53,16 @@ public class Green3 implements LevelInformation {
 
             @Override
             public void drawOn(DrawSurface d) {
-                d.setColor(Color.decode("#003049"));
+                d.setColor(Color.BLACK);
                 d.fillRectangle(0, 0, 800, 600);
+                d.setColor(Color.BLUE);
+                d.drawCircle(400, 162, 60);
+                d.drawCircle(400, 162, 90);
+                d.drawCircle(400, 162, 120);
+                d.drawLine(400, 192, 400, 302);
+                d.drawLine(420, 162, 540, 162);
+                d.drawLine(380, 162, 260, 162);
+                d.drawLine(400, 132, 400, 22);
             }
 
             @Override
@@ -69,36 +75,9 @@ public class Green3 implements LevelInformation {
     @Override
     public List<Block> blocks(){
         List<Block> blocks = new ArrayList<>();
-        // from "game" - the original
-        int BLOCK_WIDTH = 60;
-        int BLOCK_HEIGHT = 20;
-        int SPACING = 0; // no space
-
-        int START_Y = 100;
-        int START_X = 800;// the corner
-        int BORDER_SIZE = 10;
-
-        int BLOCKS_PER_ROW = 12;
-        int NUM_ROWS = 6;
-
-        //for different colors
-        Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
-
-        // create a block for checking
-
-        for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
-            Color currentColor = rowColors[row];   // different color for each row
-            double currentY = START_Y + row * (BLOCK_HEIGHT);
-            for (int col = 0; col < BLOCKS_PER_ROW; col++) {
-                double currentX = ( START_X - col * (BLOCK_WIDTH) ) - BORDER_SIZE * 7;
-                Rectangle rect = new Rectangle(new Point(currentX, currentY), BLOCK_WIDTH, BLOCK_HEIGHT);// create the block
-                Block newBlock = new Block(rect,currentColor);
-                blocks.add(newBlock);
-
-            }
-            BLOCKS_PER_ROW = BLOCKS_PER_ROW - 1;
-        }
-
+        Point upper_left = new Point(380, 142);
+        Block block_1 = new Block(new Rectangle(upper_left,40 , 40), Color.RED);
+        blocks.add(block_1);
         return blocks;
     }
 
@@ -107,16 +86,18 @@ public class Green3 implements LevelInformation {
     // This number should be <= blocks.size();
     @Override
     public int numberOfBlocksToRemove(){
-        return 57;
+        return 1;
     }
 
 
+
+    // Check
     public static void main(String[] args) {
         biuoop.GUI gui = new biuoop.GUI("Level Preview", 800, 600);
         biuoop.DrawSurface d = gui.getDrawSurface();
 
         // יצירת מופע של השלב (למשל DirectHit)
-        Green3 level = new Green3();
+        Level_1 level = new Level_1();
 
         // 1. ציור הרקע (השכבה התחתונה)
         level.getBackground().drawOn(d);
@@ -129,6 +110,4 @@ public class Green3 implements LevelInformation {
 
         gui.show(d);
     }
-
-
 }

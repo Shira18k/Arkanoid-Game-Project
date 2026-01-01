@@ -3,8 +3,8 @@ package Levels;
 import Engine.Velocity;
 import Interfaces.LevelInformation;
 import Interfaces.Sprite;
-import Shapes.Point;
 import Shapes.Rectangle;
+import Shapes.Point;
 import Sprites.Block;
 import biuoop.DrawSurface;
 
@@ -12,13 +12,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//finaly four
-
-public class FinalFour implements LevelInformation {
-
+public class Level_2 implements LevelInformation {
     @Override
     public int numberOfBalls(){
-        return 3;
+        return 1;
     }
 
     // The initial velocity of each ball
@@ -26,7 +23,18 @@ public class FinalFour implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities(){
         List<Velocity> velocities = new ArrayList<>();
-        velocities.add(Velocity.fromAngleAndSpeed(0, 5));
+        // 10 balls
+        velocities.add(Velocity.fromAngleAndSpeed(20, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(30, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(50, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(60, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(40, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(-20, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(-30, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(-50, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(-60, 5));
+        velocities.add(Velocity.fromAngleAndSpeed(-40, 5));
+
         return velocities;
     }
 
@@ -37,13 +45,13 @@ public class FinalFour implements LevelInformation {
 
     @Override
     public int paddleWidth(){
-        return 10;
+        return 800;
     }
 
     // the level name will be displayed at the top of the screen.
     @Override
     public String levelName(){
-        return "Wide Easy";
+        return "WideEasy";
 
     }
 
@@ -55,9 +63,13 @@ public class FinalFour implements LevelInformation {
 
             @Override
             public void drawOn(DrawSurface d) {
-                d.setColor(Color.decode("#48CAE4"));
+                d.setColor(Color.WHITE);
                 d.fillRectangle(0, 0, 800, 600);
-
+                d.setColor(Color.YELLOW);
+                Point center = new Point (142, 162);
+                d.fillCircle((int) center.getX(), (int) center.getY(), 50);
+                d.setColor(Color.YELLOW);
+                d.drawCircle((int) center.getX(), (int) center.getY(), 50);
             }
 
             @Override
@@ -70,37 +82,30 @@ public class FinalFour implements LevelInformation {
     @Override
     public List<Block> blocks(){
         List<Block> blocks = new ArrayList<>();
-        // from "game" - the original
-        int BLOCK_WIDTH = 60;
-        int BLOCK_HEIGHT = 20;
-        int SPACING = 0; // no space
 
-        int START_Y = 100;
-        int START_X = 800;// the corner
+        int BLOCK_WIDTH = 48;
         int BORDER_SIZE = 10;
+        int BLOCK_HEIGHT = 20;
 
-        int BLOCKS_PER_ROW = 14;
-        int NUM_ROWS = 7;
 
-        //for different colors
-        Color[] rowColors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6"),Color.decode("#94D2BD")};
+        Point upper_left_first = new Point(0,250);
+        double startY = upper_left_first.getY();
+        double startX = upper_left_first.getX();
 
-        // create a block for checking
+        Color[] colors = {Color.decode("#9B2226"), Color.decode("#AE2012"), Color.decode("#BB3E03"), Color.decode("#CA6702"), Color.decode("#EE9B00"), Color.decode("#E9D8A6")};
 
-        for (int row = 0; row < NUM_ROWS; row++) { // rows of blocks
-            Color currentColor = rowColors[row];   // different color for each row
-            double currentY = START_Y + row * (BLOCK_HEIGHT);
-            for (int col = 0; col < BLOCKS_PER_ROW; col++) {
-                double currentX = (START_X - col * (BLOCK_WIDTH)) -10;
-                if (currentX < 740) {
-                    Rectangle rect = new Rectangle(new Point(currentX, currentY), BLOCK_WIDTH, BLOCK_HEIGHT);// create the block
-                    Block newBlock = new Block(rect, currentColor);
-                    blocks.add(newBlock);
-                }
+        while (startX < 710) {
+
+            for (int col = 0; col < 15; col++) {
+                Color currentColor = colors[(col / 2) % colors.length];
+
+                double nextX = startX + 48;
+                Rectangle rect = new Rectangle(new Point(nextX, startY), 48, BLOCK_HEIGHT); // create the block
+                Block newBlock = new Block(rect, currentColor);
+                startX = nextX;
+                blocks.add(newBlock);
             }
-
         }
-
         return blocks;
     }
 
@@ -109,14 +114,15 @@ public class FinalFour implements LevelInformation {
     // This number should be <= blocks.size();
     @Override
     public int numberOfBlocksToRemove(){
-        return 98;
+        return 15;
     }
+
     public static void main(String[] args) {
         biuoop.GUI gui = new biuoop.GUI("Level Preview", 800, 600);
         biuoop.DrawSurface d = gui.getDrawSurface();
 
         // יצירת מופע של השלב (למשל DirectHit)
-        FinalFour level = new FinalFour();
+        Level_2 level = new Level_2();
 
         // 1. ציור הרקע (השכבה התחתונה)
         level.getBackground().drawOn(d);
@@ -129,5 +135,4 @@ public class FinalFour implements LevelInformation {
 
         gui.show(d);
     }
-
 }
